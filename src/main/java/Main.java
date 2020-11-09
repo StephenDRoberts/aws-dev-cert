@@ -8,14 +8,16 @@ import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.polly.PollyClient;
 import software.amazon.awssdk.services.polly.model.SynthesizeSpeechRequest;
 
+import java.util.Collections;
+
 public class Main {
 
     public static void main(String[] args) throws JavaLayerException {
 
-        String SAMPLE = "Hello Spyro";
+        String SAMPLE = "Hello AWS";
 
         PollyClient pollyClient = PollyClient.builder()
-                .region(Region.EU_WEST_1)
+                .region(Region.US_EAST_1)
                 .credentialsProvider(ProfileCredentialsProvider.builder()
                     .profileName("default")
                     .build()
@@ -24,10 +26,11 @@ public class Main {
 
         ResponseInputStream speechStream = pollyClient.synthesizeSpeech(
                 SynthesizeSpeechRequest.builder()
-                        .languageCode("en-GB")
+                        .languageCode("en-US")
+                        .lexiconNames("awsLexicon")
                         .outputFormat("mp3")
                         .text(SAMPLE)
-                        .voiceId("Brian")
+                        .voiceId("Salli")
                         .build()
         );
 
